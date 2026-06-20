@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>许龙飞 · AI 训练师</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-2: #f8f7f5;
+      --bg-3: #f1f0ec;
+      --text: #1a1917;
+      --text-2: #5f5e5a;
+      --text-3: #888780;
+      --border: rgba(0,0,0,0.1);
+      --border-2: rgba(0,0,0,0.18);
+      --accent: #185fa5;
+      --accent-bg: #e6f1fb;
+      --accent-text: #0c447c;
+      --tag-bg: #f1f0ec;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1917;
+        --bg-2: #232220;
+        --bg-3: #2c2c2a;
+        --text: #f1f0ec;
+        --text-2: #b4b2a9;
+        --text-3: #888780;
+        --border: rgba(255,255,255,0.1);
+        --border-2: rgba(255,255,255,0.18);
+        --accent: #378add;
+        --accent-bg: #042c53;
+        --accent-text: #85b7eb;
+        --tag-bg: #2c2c2a;
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 0.5px solid var(--border);
+      z-index: 10;
+      padding: 0.75rem 0;
+    }
+    nav .inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav .logo { font-size: 15px; font-weight: 500; text-decoration: none; color: var(--text); }
+    nav .links { display: flex; gap: 1.5rem; }
+    nav .links a { font-size: 14px; color: var(--text-2); text-decoration: none; transition: color 0.15s; }
+    nav .links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      padding: 4rem 0 3rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--accent-bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 500;
+      color: var(--accent-text);
+      margin-bottom: 1.25rem;
+    }
+    .hero-name { font-size: 28px; font-weight: 500; margin-bottom: 6px; }
+    .hero-role {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 14px; color: var(--text-2);
+      margin-bottom: 1.5rem;
+    }
+    .hero-role span { color: var(--border-2); }
+
+    /* SECTIONS */
+    .section { padding: 2.5rem 0; border-bottom: 0.5px solid var(--border); }
+    .section:last-child { border-bottom: none; }
+    .section-label {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-3);
+      margin-bottom: 1.5rem;
+    }
+
+    /* CAPABILITY CARDS */
+    .cap-card {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 12px;
+    }
+    .cap-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 8px;
+    }
+    .cap-icon {
+      width: 32px; height: 32px; border-radius: var(--radius-md);
+      background: var(--accent-bg);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent-text); font-size: 16px; flex-shrink: 0;
+    }
+    .cap-title { font-size: 15px; font-weight: 500; }
+    .cap-body { font-size: 14px; color: var(--text-2); line-height: 1.7; }
+
+    /* SKILLS */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-chip {
+      font-size: 13px; padding: 5px 12px;
+      border: 0.5px solid var(--border-2);
+      border-radius: 99px; color: var(--text-2);
+    }
+
+    /* PROJECT */
+    .project-card {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 16px;
+    }
+    .project-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 4px; margin-bottom: 4px; }
+    .project-title { font-size: 16px; font-weight: 500; }
+    .project-date { font-size: 13px; color: var(--text-3); }
+    .project-bg { font-size: 13px; color: var(--text-3); margin-bottom: 1rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+    .tag {
+      font-size: 12px; padding: 3px 9px;
+      border-radius: var(--radius-md);
+      background: var(--tag-bg); color: var(--text-2);
+    }
+    .duties h4 { font-size: 13px; font-weight: 500; color: var(--text-3); margin-bottom: 8px; }
+    .duties ul { list-style: none; padding: 0; }
+    .duties ul li {
+      font-size: 14px; color: var(--text-2); line-height: 1.65;
+      padding: 6px 0 6px 20px; position: relative;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .duties ul li:last-child { border-bottom: none; }
+    .duties ul li::before { content: "·"; position: absolute; left: 6px; color: var(--text-3); }
+
+    /* METRICS */
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-top: 1.25rem; }
+    .metric {
+      background: var(--bg-2);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+    }
+    .metric-num { font-size: 22px; font-weight: 500; color: var(--accent); }
+    .metric-label { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+
+    /* CONTACT */
+    .contact-list { display: flex; flex-direction: column; gap: 10px; }
+    .contact-row {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--text-2); text-decoration: none;
+    }
+    .contact-row i { font-size: 17px; color: var(--text-3); }
+    .contact-row:hover { color: var(--text); }
+
+    /* FOOTER */
+    footer {
+      border-top: 0.5px solid var(--border);
+      padding: 1.5rem 0;
+      text-align: center;
+      font-size: 13px; color: var(--text-3);
+    }
+
+    @media (max-width: 540px) {
+      .hero { padding: 2.5rem 0 2rem; }
+      .hero-name { font-size: 22px; }
+      .metrics { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a class="logo" href="#">许龙飞</a>
+    <div class="links">
+      <a href="#about">关于</a>
+      <a href="#skills">技能</a>
+      <a href="#projects">项目</a>
+      <a href="#contact">联系</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero" id="about">
+    <div class="avatar">许</div>
+    <h1 class="hero-name">许龙飞</h1>
+    <div class="hero-role">
+      <i class="ti ti-brain" aria-hidden="true"></i>
+      AI 训练师
+      <span>·</span>
+      评测体系专家
+      <span>·</span>
+      自动化工作流设计
+    </div>
+
+    <!-- 三大能力卡片 -->
+    <div class="cap-card">
+      <div class="cap-header">
+        <div class="cap-icon"><i class="ti ti-list-check" aria-hidden="true"></i></div>
+        <div class="cap-title">评测体系搭建能力</div>
+      </div>
+      <div class="cap-body">深度参与 K12 教育垂直领域大模型评测全流程，具备从评测方案设计、评测集构建、标注质检到报告产出的完整闭环能力；擅长基于评测数据进行归因分析与结构化总结，产出高置信度评测报告，以结果为导向持续优化项目流程。</div>
+    </div>
+
+    <div class="cap-card">
+      <div class="cap-header">
+        <div class="cap-icon"><i class="ti ti-settings-automation" aria-hidden="true"></i></div>
+        <div class="cap-title">自动化工作流搭建能力</div>
+      </div>
+      <div class="cap-body">主导搭建数据标注与模型评测自动化工作流，熟练运用 Trae 等低代码平台实现人机协同标注，推动标注准确率从 75% 提升至 95% 以上，团队整体效率提升 40%，人工成本显著降低。</div>
+    </div>
+
+    <div class="cap-card">
+      <div class="cap-header">
+        <div class="cap-icon"><i class="ti ti-layers-intersect" aria-hidden="true"></i></div>
+        <div class="cap-title">多领域实战经验</div>
+      </div>
+      <div class="cap-body">具备 AI 训练师、质检、评测管理员等多重角色经验，项目覆盖 K12 教育、保险 RAG、图生视频、占星 AI 等多个垂直场景，能够快速理解业务需求并推动评测与标注能力在真实业务中落地。</div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <div class="section-label">技能</div>
+    <div class="skills-grid">
+      <span class="skill-chip">LLM 评测体系设计</span>
+      <span class="skill-chip">RLHF 数据标注</span>
+      <span class="skill-chip">GSB / SBS 评测方法</span>
+      <span class="skill-chip">评测集构建</span>
+      <span class="skill-chip">标注质检管理</span>
+      <span class="skill-chip">提示词工程</span>
+      <span class="skill-chip">自动化工作流</span>
+      <span class="skill-chip">Trae 低代码平台</span>
+      <span class="skill-chip">归因分析与报告产出</span>
+      <span class="skill-chip">人机协同标注</span>
+      <span class="skill-chip">K12 教育 AI</span>
+      <span class="skill-chip">RAG 系统评测</span>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="section-label">项目经历</div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-title">K12 教育国内大模型能力评测</div>
+        <div class="project-date">2025.04 — 2026.04</div>
+      </div>
+      <div class="project-bg">公司处于 K12 教育产品研发初期，需建立贴合 C 端真实教育需求的专项评测体系，为模型选型提供数据支撑。</div>
+
+      <div class="project-tags">
+        <span class="tag">K12 教育</span>
+        <span class="tag">LLM 评测</span>
+        <span class="tag">数据标注</span>
+        <span class="tag">自动化流程</span>
+        <span class="tag">评测报告</span>
+      </div>
+
+      <div class="duties">
+        <h4>主要职责</h4>
+        <ul>
+          <li>规则文档撰写与优化：设计覆盖解题正确性、解题过程质量、安全与合规等 4 个核心维度的评测框架，采用 GSB/SBS 评测方法，引入双盲标注机制控制成本与主观偏差。</li>
+          <li>评测集构建：通过开源平台打捞用户真实 Query，结合 Trae 工具进行数据合成与扩充；遵循"模型陌生性、维度丰富性、难度梯度性"三原则构建评测集，有效提升评测置信度。</li>
+          <li>标注与质检：小规模试标验证标准可行性后，推进人机协同大规模标注；针对 diff 分歧、人员对齐、base 收集等问题，组织专项培训与对齐讨论，保障标注质量稳定达标。</li>
+          <li>评测报告产出：基于评测数据与标注备注，系统提炼模型优缺点，重点输出核心结论及典型 BadCase / GoodCase 分析，为模型选型与优化提供精准决策依据。</li>
+        </ul>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-num">8 万+</div>
+          <div class="metric-label">累计审核标注素材</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">60% → 95%</div>
+          <div class="metric-label">素材合格率提升</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">5000+</div>
+          <div class="metric-label">有效评测集数据条目</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">98.5%</div>
+          <div class="metric-label">标注准确率</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">70%</div>
+          <div class="metric-label">标注效率提升</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">50%</div>
+          <div class="metric-label">人工成本降低</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="section-label">联系方式</div>
+    <div class="contact-list">
+      <a class="contact-row" href="mailto:2676266754@qq.com">
+        <i class="ti ti-mail" aria-hidden="true"></i>
+        2676266754@qq.com
+      </a>
+      <a class="contact-row" href="tel:16603804739">
+        <i class="ti ti-phone" aria-hidden="true"></i>
+        166 0380 4739
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">© 2026 许龙飞 · AI 训练师</div>
+</footer>
+
+</body>
+</html>
